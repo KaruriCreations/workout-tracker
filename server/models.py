@@ -35,3 +35,13 @@ class Exercise(db.model):
         if not value or value.strip():
             raise ValueError("Equipment needed cannot be empty.")
         return value
+
+
+#workout model
+class Workout(db.model):
+    __tablename__ = "workouts"
+
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.Date, nullable=False)
+    duration_minutes = db.Column(db.Integer, nullable=False)
+    notes = db.Column(db.String)
