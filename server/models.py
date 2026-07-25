@@ -23,3 +23,9 @@ class Exercise(db.model):
         if not value or value.strip():
             raise ValueError("Exercise name cannot be empty.")
         return value
+
+    @validates('category')
+    def validate_category(self, key, value):
+        if not value or value.strip():
+            raise ValueError("Exercise category cannot be empty.")
+        return value
