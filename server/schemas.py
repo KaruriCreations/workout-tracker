@@ -7,6 +7,14 @@ class ExerciseSchema(Schema):
     name = fields.Str(required=True)
     category = fields.Str(required=True)
     equipment_needed = fields.Boolean()
-    
-    
+
+class WorkoutExerciseSchema(Schema):
+    id = fields.Integer(dump_only=True)
+    workout_id = fields.Integer(required=True)
+    exercise_id = fields.Integer(required=True)
+    sets = fields.Integer(required=True)
+    reps = fields.Integer(required=True)
+    duration_seconds = fields.Integer(required=True)
+
+
 
