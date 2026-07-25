@@ -16,5 +16,17 @@ class WorkoutExerciseSchema(Schema):
     reps = fields.Integer(required=True)
     duration_seconds = fields.Integer(required=True)
 
+    #relationship:single nested schema
+    exercise = fields.Nested(ExerciseSchema, only=('id', 'name', 'category'))
 
+
+
+class WorkoutSchema(Schema):
+    id = fields.Integer(dump_only=True)
+    date = fields.Date(required=True)
+    duration_minutes = fields.Integer(required=True)
+    notes = fields.Str()
+    
+    #relationship:many nested schema
+    workout = fields.Nested(WorkoutExerciseSchema, only=('id', 'exercise_id', 'sets', 'reps', 'duration_seconds'))
 
