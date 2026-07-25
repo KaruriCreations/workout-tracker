@@ -67,4 +67,13 @@ class WorkoutExercise(db.model):
     reps = db.Column(db.Integer, nullable=False)
     duration_seconds = db.Column(db.Integer, nullable=False)
 
+    #validations
+    @validates('duration_seconds', 'sets', 'reps')
+    def validate_value(self, key, value):
+        if value is None or value <= 0:
+            raise ValueError(f"{key} must be greater than zero.")
+        return value
+
+
+
 
