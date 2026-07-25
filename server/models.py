@@ -45,3 +45,8 @@ class Workout(db.model):
     date = db.Column(db.Date, nullable=False)
     duration_minutes = db.Column(db.Integer, nullable=False)
     notes = db.Column(db.String)
+
+    #relationship:one workout has many workout exercies
+    workout_exercises = db.relationship('WorkoutExercise', backref='workout', cascade='all, delete-orphan')
+
+    
