@@ -17,5 +17,9 @@ class Exercise(db.model):
     #relationship: one exercise has many  workouts
     workout_exercises = db.relationship('WorkoutExercise', backref='exercise', cascade='all, delete-orphan')
 
-    
-    
+    #validation
+    @validates('name')
+    def validate_name(self, key, value):
+        if not value or value.strip():
+            raise ValueError("Exercise name cannot be empty.")
+        return value
