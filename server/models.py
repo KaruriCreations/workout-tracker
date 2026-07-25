@@ -14,5 +14,8 @@ class Exercise(db.model):
     category = db.Column(db.String, nullable=False)
     equipment_needed = db.Column(db.String, nullable=False)
 
+    #relationship: one exercise has many  workouts
+    workout_exercises = db.relationship('WorkoutExercise', backref='exercise', cascade='all, delete-orphan')
+
     
     
