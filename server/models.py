@@ -49,4 +49,12 @@ class Workout(db.model):
     #relationship:one workout has many workout exercies
     workout_exercises = db.relationship('WorkoutExercise', backref='workout', cascade='all, delete-orphan')
 
-    
+    #validations
+    @validates('duration_minutes')
+    def validate_duration_minutes(self, key, value):
+        if value is None or value <= 0:
+            raise ValueError("Workout duration must be positive.")
+        return value
+
+        
+
