@@ -28,5 +28,13 @@ class WorkoutSchema(Schema):
     notes = fields.Str()
     
     #relationship:many nested schema
-    workout = fields.Nested(WorkoutExerciseSchema, only=('id', 'exercise_id', 'sets', 'reps', 'duration_seconds'))
+    workout_exercises = fields.List(fields.Nested(WorkoutExerciseSchema, only=('id', 'exercise_id', 'sets', 'reps', 'duration_seconds')))
 
+#instances to export for routes in app.py
+exercise_schema = ExerciseSchema()
+exercises_schema = ExerciseSchema(many=True)
+
+workout_schema = WorkoutSchema()
+workouts_schema = WorkoutSchema(many=True)
+
+workout_exercise_schema = WorkoutExerciseSchema()
