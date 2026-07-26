@@ -55,7 +55,7 @@ def create_workout():
         return jsonify({'message':'Workout created successfully'}),201
     except ValueError as err:
         return jsonify({'error':str(err)}),400
-        
+
 #for updating workouts
 @app.route('/workouts/<id>',methods=['PUT'])
 def update_workout(id):
@@ -72,3 +72,16 @@ def update_workout(id):
     except ValueError as err:
         return jsonify({'error':str(err)}),400
 
+#for deleting workouts
+@app.route('/workouts/<id>',methods=['DELETE'])
+def delete_workout(id):
+    workout = Workout.query.get(id)
+    if workout is None:
+        return jsonify({'message':'Workout not found'}),404
+    try:
+        db.session.delete(workout)
+        db.session.commit()
+        return jsonify({'message':'Workout deleted successfully'}),200
+    except Exception as err:
+        db.session.rollback()
+        return jsonify({'error':str(err)}),400
