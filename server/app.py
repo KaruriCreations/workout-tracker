@@ -22,3 +22,9 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 migrate = Migrate(app, db)
 
+#MY routes
+
+@app.route('/')
+def index():
+    return jsonify({"message": "Welcome to Workout Tracker API"})
+
