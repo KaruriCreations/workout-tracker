@@ -43,7 +43,7 @@ def get_workout(id):
     result = workout_schema.dump(workout)
     return jsonify(result), 200
 
-
+#for creating workouts
 @app.route('/workouts',methods=['POST'])
 def create_workout():
     data = request.get_json()
@@ -55,3 +55,20 @@ def create_workout():
         return jsonify({'message':'Workout created successfully'}),201
     except ValueError as err:
         return jsonify({'error':str(err)}),400
+        
+#for updating workouts
+@app.route('/workouts/<id>',methods=['PUT'])
+def update_workout(id):
+    workout = Workout.query.get(id)
+    if workout is None:
+        return jsonify({'message':'Workout not found'}),404
+    data = request.get_json()
+    try:
+        workout.date = datetime.strptime(data['date'], '%Y-%m-%d').date()
+        workout.duration_minutes = data['duration_minutes']
+        workout.notes = data.get('notes')
+        db.session.commit()
+        return jsonify({'message':'Workout updated successfully'}),200
+    except ValueError as err:
+        return jsonify({'error':str(err)}),400
+
