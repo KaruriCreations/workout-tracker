@@ -129,3 +129,26 @@ def delete_exercise(id):
     except Exception as err:
         db.session.rollback()
         return jsonify({'error':str(err)}),400
+
+#workout_exerxise endpoints
+@app.route('/workouts/<int:workout_id>/exercises/<int:exercise_id>/workout_exercises',methods=['POST'])
+def add_exercise_to_workout(workout_id, exercise_id):
+    workout = Workout.query.get(workout_id)
+    exercise = Exercise.query.get(exercise_id)
+    if workout is None or exercise is None:
+        return jsonify({'message':'Workout or Exercise not found'}),404
+    data = request.get_json()
+    try:
+        new_workout_exercise = WorkoutExercise(
+            workout_id=workout.id,
+            exercise_id=exercise.id,
+            sets=data.get('sets'),
+            reps=data.get('reps'),
+            duration_seconds=data.get('duration_seconds')
+        )
+        db.session.add(new_workout_exercise)
+        db.session.commit()
+        return jsonify({'message':'Exercise added to workout successfully'}),201
+    except ValueError as err:
+        db.session.rollback()
+        return jsonify({'error':str(err)}),400
