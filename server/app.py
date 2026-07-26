@@ -115,3 +115,17 @@ def create_exercise():
         return jsonify({'message':'Exercise created successfully'}),201
     except ValueError as err:
         return jsonify({'error':str(err)}),400
+
+#deleting an exercise
+@app.route('/exercises/<id>',methods=['DELETE'])
+def delete_exercise(id):
+    exercise = Exercise.query.get(id)
+    if exercise is None:
+        return jsonify({'message':'Exercise not found'}),404
+    try:
+        db.session.delete(exercise)
+        db.session.commit()
+        return jsonify({'message':'Exercise deleted successfully'}),200
+    except Exception as err:
+        db.session.rollback()
+        return jsonify({'error':str(err)}),400
