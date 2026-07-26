@@ -11,11 +11,15 @@ from schemas import (
     workout_exercise_schema
 )
 
+import os
+
 #Initialize flask app
 app = Flask(__name__)
 
 #config my databas
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+db_path = os.path.join(BASE_DIR, 'instance', 'app.db').replace('\\', '/')
+app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{db_path}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
 
 #initalize db and migration
