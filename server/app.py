@@ -94,3 +94,12 @@ def get_exercises():
     exercises = Exercise.query.all()
     result = exercises_schema.dump(exercises)
     return jsonify(result), 200
+
+#getting one exercise
+@app.route('/exercises/<id>',methods=['GET'])
+def get_exercise(id):
+    exercise = Exercise.query.get(id)
+    if exercise is None:
+        return jsonify({'message':'Exercise not found'}),404
+    result = exercise_schema.dump(exercise)
+    return jsonify(result), 200
