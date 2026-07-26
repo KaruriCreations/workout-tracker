@@ -26,5 +26,13 @@ migrate = Migrate(app, db)
 
 @app.route('/')
 def index():
-    return jsonify({"message": "Welcome to Workout Tracker API"})
+    return jsonify({"message": "Welcome to Workout Tracker API"}),200
+#workout endpoints
+
+@app.route('/workouts',methods=['GET'])   
+def get_workouts():
+    workouts = Workout.query.all()
+    result = workouts_schema.dump(workouts)
+    return jsonify(result), 200
+
 
