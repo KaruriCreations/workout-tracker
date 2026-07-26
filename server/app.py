@@ -10,3 +10,12 @@ from schemas import (
     exercise_schema, exercises_schema,
     workout_exercise_schema
 )
+
+#Initialize flask app
+app = Flask(__name__)
+
+#config my databas
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
+
+#initalize db and migration
