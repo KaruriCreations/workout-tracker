@@ -85,3 +85,12 @@ def delete_workout(id):
     except Exception as err:
         db.session.rollback()
         return jsonify({'error':str(err)}),400
+
+#exercise ednpoints
+
+#for listing all exercises
+@app.route('/exercises',methods=['GET']) 
+def get_exercises():
+    exercises = Exercise.query.all()
+    result = exercises_schema.dump(exercises)
+    return jsonify(result), 200
