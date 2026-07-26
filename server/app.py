@@ -26,7 +26,7 @@ migrate = Migrate(app, db)
 
 @app.route('/')
 def index():
-    return jsonify({"message": "Welcome to Workout Tracker API"}),200
+    return jsonify({"message": "Welcome to Vincent Maina Workout Tracker API"}),200
 #workout endpoints
 #for listing all workouts
 @app.route('/workouts',methods=['GET'])   
@@ -152,3 +152,6 @@ def add_exercise_to_workout(workout_id, exercise_id):
     except ValueError as err:
         db.session.rollback()
         return jsonify({'error':str(err)}),400
+
+if __name__ == '__main__':
+    app.run(port=5555, debug=True)     
